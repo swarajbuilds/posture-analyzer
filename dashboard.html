@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Posture Detection System — Real-time posture monitoring with AI-powered analysis.">
+    <title>Dashboard — Posture Detection System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- MediaPipe CDNs for Real-Time Tracking -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="nav-logo">
+                <span class="logo-icon">◉</span>
+                <span class="logo-text">Posture System</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#demo" class="nav-link-active">Dashboard</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><span class="nav-welcome" id="navWelcome">Welcome</span></li>
+                <li><button class="nav-logout-btn" id="logoutBtn">Logout</button></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Alert Banners Container -->
+    <div class="alert-banners-container" id="alertBannersContainer"></div>
+
+    <!-- Break Reminder Popup -->
+    <div class="break-popup-overlay" id="breakPopupOverlay">
+        <div class="break-popup">
+            <div class="break-popup-icon">☕</div>
+            <h2>Time for a Break!</h2>
+            <p>You've been working for 20 minutes. Stand up, stretch, and give your eyes a rest.</p>
+            <button class="btn btn-primary" id="dismissBreakBtn">Got it!</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Welcome Header -->
+            <div class="dashboard-header">
+                <div class="dashboard-greeting">
+                    <h1>Welcome, <span class="gradient-text" id="dashboardUserName">Student</span></h1>
+                    <p class="dashboard-date" id="dashboardDate"></p>
+                </div>
+                <div class="session-controls">
+                    <button class="btn btn-outline btn-sm notif-toggle" id="notifToggleBtn" title="Enable desktop notifications">
+                        🔔 Notifications
+                    </button>
+                    <div class="session-timer" id="sessionTimer">
+                        <span class="timer-icon">⏱️</span>
+                        <span class="timer-value" id="timerValue">00:00:00</span>
+                    </div>
+                </div>
+            </div>            <!-- Project Overview Showcase (Academic Presentation for Evaluation) -->
+            <!-- ================== ACADEMIC PROJECT PRESENTATION (SCROLLABLE & HIGH-END) ================== -->
+            
+            <!-- ================== PROJECT OVERVIEW & PRESENTATION (CLEAN & ELEGANT) ================== -->
+            
+            <div class="card project-details-card" style="margin-bottom: 2.5rem; background: radial-gradient(circle at top right, rgba(0,212,255,0.02), var(--bg-card)); border-color: rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+                <div class="card-header" style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem 1.75rem;">
+                    <span class="card-tag" style="color: var(--accent-cyan);">📋 About Our Posture AI Project</span>
+                    <span class="card-tag" style="color: var(--accent-purple); font-weight: 700;">ASEP II — Group 7 Project</span>
+                </div>
+                <div class="project-details-body" style="padding: 2rem;">
+                    <div class="project-showcase-grid" style="gap: 2.5rem;">
+                        <!-- Project Introduction -->
+                        <div>
+                            <h2 style="font-size: 1.65rem; margin-bottom: 1.25rem; font-weight: 800;">
+                                AI-Powered <span class="gradient-text">Ergonomic Posture Monitor</span> & Eye Strain Guard
+                            </h2>
+                            <p style="color: var(--text-secondary); line-height: 1.75; margin-bottom: 1.25rem; font-size: 0.95rem; text-align: justify;">
+                                We built this system to help students and professionals protect their spine and eyes while working on computers. Sitting at a desk for long hours can cause neck pain, shoulder tension, and eye strain.
+                            </p>
+                            <p style="color: var(--text-secondary); line-height: 1.75; margin-bottom: 1.25rem; font-size: 0.95rem; text-align: justify;">
+                                Using a normal webcam, our system monitors your posture completely in the browser (processed entirely on your own computer for absolute privacy!). It calculates your alignment, counts your eye blinks, and helps you stay healthy.
+                            </p>
+                            <p style="color: var(--text-secondary); line-height: 1.75; margin-bottom: 0; font-size: 0.95rem; text-align: justify;">
+                                Everything runs smoothly and securely in real-time, giving you helpful visual charts and gauges to see how your posture changes throughout your session.
+                            </p>
+                        </div>
+
+                        <!-- Core Features Made by Group 7 -->
+                        <div style="background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.06); height: 100%;">
+                            <h3 style="font-size: 1.05rem; margin-bottom: 1.25rem; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.5rem;">
+                                ✨ Key Features We Built:
+                            </h3>
+                            <ul style="display: flex; flex-direction: column; gap: 1rem; padding-left: 0;">
+                                <li class="showcase-feature-item" style="padding: 0;">
+                                    <span style="font-size: 1.2rem; background: rgba(0, 212, 255, 0.1); width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--accent-cyan); flex-shrink: 0; margin-top: 0.1rem;">📐</span>
+                                    <div>
+                                        <strong style="color: var(--text-primary); display: block; font-size: 0.9rem;">Real-Time Posture Tracking</strong>
+                                        <span style="color: var(--text-secondary); font-size: 0.8rem;">Instantly measures shoulder slant, head tilt, and neck alignment to tell you if you are slanting or leaning.</span>
+                                    </div>
+                                </li>
+                                <li class="showcase-feature-item" style="padding: 0;">
+                                    <span style="font-size: 1.2rem; background: rgba(34, 197, 94, 0.1); width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--accent-green); flex-shrink: 0; margin-top: 0.1rem;">👁️</span>
+                                    <div>
+                                        <strong style="color: var(--text-primary); display: block; font-size: 0.9rem;">Eye Strain & Blink Monitoring</strong>
+                                        <span style="color: var(--text-secondary); font-size: 0.8rem;">Automatically tracks your blink count to protect you from screen dryness and fatigue.</span>
+                                    </div>
+                                </li>
+                                <li class="showcase-feature-item" style="padding: 0;">
+                                    <span style="font-size: 1.2rem; background: rgba(168, 85, 247, 0.1); width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--accent-purple); flex-shrink: 0; margin-top: 0.1rem;">🔔</span>
+                                    <div>
+                                        <strong style="color: var(--text-primary); display: block; font-size: 0.9rem;">Stretch Breaks & Reminders</strong>
+                                        <span style="color: var(--text-secondary); font-size: 0.8rem;">Sends you quick alerts and friendly stretch exercises when you sit in a bad posture for too long.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Divider for Live Workspace -->
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; margin-top: 3.5rem;">
+                <h2 style="font-size: 1.4rem; font-weight: 800; flex-shrink: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    🔬 <span class="gradient-text">Interactive Live Laboratory</span>
+                </h2>
+                <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.08);"></div>
+                <span class="card-tag" style="font-size: 0.7rem; color: var(--text-muted);">Real-Time Workspace</span>
+            </div>
+
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Left Column: Video Feed -->
+                <div class="dashboard-video-section">
+                    <div class="card video-card">
+                        <div class="card-header">
+                            <span class="card-tag">Live Feed</span>
+                            <div class="demo-status" id="systemStatus">
+                                <span class="status-dot"></span>
+                                <span>Inactive</span>
+                            </div>
+                        </div>
+                        <div class="video-container" id="videoContainer">
+                            <video id="webcamVideo" autoplay playsinline></video>
+                            <canvas id="outputCanvas" class="output-canvas"></canvas>
+                            <div class="placeholder-overlay" id="startOverlay">
+                                <div class="start-content">
+                                    <div class="cam-icon-big">📷</div>
+                                    <p>Click below to start posture detection</p>
+                                    <button id="startCamBtn" class="btn btn-primary glow-btn">Turn On Camera</button>
+                                </div>
+                            </div>
+                            <div class="placeholder-overlay hidden" id="stopOverlay">
+                                <div class="start-content">
+                                    <button id="stopCamBtn" class="btn btn-stop">⏹ Stop Camera</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-controls">
+                            <button id="toggleCamBtn" class="btn btn-outline btn-sm" disabled>
+                                <span id="toggleBtnIcon">▶</span>
+                                <span id="toggleBtnText">Start</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Real-Time Posture Graph -->
+                    <div class="card graph-card">
+                        <div class="card-header">
+                            <span class="card-tag">📈 Real-Time Posture</span>
+                            <span class="graph-time-label" id="graphTimeLabel">Last 60 seconds</span>
+                        </div>
+                        <div class="graph-container">
+                            <canvas id="realtimePostureChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Metrics & Panels -->
+                <div class="dashboard-panels">
+                    <!-- Posture Gauge -->
+                    <div class="card gauge-card">
+                        <div class="card-header">
+                            <span class="card-tag">Posture Score</span>
+                        </div>
+                        <div class="gauge-wrapper">
+                            <canvas id="postureGauge" width="200" height="200"></canvas>
+                            <div class="gauge-center">
+                                <span class="gauge-value" id="gaugeValue">--</span>
+                                <span class="gauge-label" id="gaugeLabel">Waiting</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Metrics -->
+                    <div class="card metrics-card">
+                        <div class="card-header">
+                            <span class="card-tag">Live Metrics</span>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-item">
+                                <span class="metric-emoji">😐</span>
+                                <div class="metric-info">
+                                    <span class="metric-label">Emotion</span>
+                                    <span class="metric-value" id="valEmotion">Neutral</span>
+                                </div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-emoji">👁️</span>
+                                <div class="metric-info">
+                                    <span class="metric-label">Blinks</span>
+                                    <span class="metric-value" id="valBlinks">0</span>
+                                </div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-emoji">🧠</span>
+                                <div class="metric-info">
+                                    <span class="metric-label">Attention</span>
+                                    <span class="metric-value" id="valAttention">--</span>
+                                </div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-emoji">🔔</span>
+                                <div class="metric-info">
+                                    <span class="metric-label">Alerts</span>
+                                    <span class="metric-value" id="valAlertCount">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Posture Angles Telemetry -->
+                    <div class="card telemetry-card" style="margin-top: 1.25rem;">
+                        <div class="card-header">
+                            <span class="card-tag">Biomechanics Telemetry</span>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-item">
+                                <span class="metric-emoji">📐</span>
+                                <div class="metric-info">
+                                    <span class="metric-label">Shoulder Slant</span>
+                                    <span class="metric-value" id="valShoulderAngle" style="font-size: 1.2rem; color: var(--text-muted);">--</span>
+                                </div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-emoji">🙇</span>
+                                <div class="metric-info">
+                                    <span class="metric-label">Neck Alignment</span>
+                                    <span class="metric-value" id="valNeckAngle" style="font-size: 1.2rem; color: var(--text-muted);">--</span>
+                                </div>
+                            </div>
+                            <div class="metric-item" style="grid-column: span 2;">
+                                <span class="metric-emoji">👤</span>
+                                <div class="metric-info">
+                                    <span class="metric-label">Head Lateral Tilt</span>
+                                    <span class="metric-value" id="valHeadAngle" style="font-size: 1.2rem; color: var(--text-muted);">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">◉</span>
+                    <span class="logo-text">Posture System</span>
+                </div>
+                <p class="footer-tagline">AI-powered posture monitoring and correction.</p>
+                <div class="footer-divider"></div>
+                <p class="footer-copy">ASEP 2 GROUP7 project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts in dependency order -->
+    <script src="auth.js?v=2.0"></script>
+    <script src="gauge.js?v=2.0"></script>
+    <script src="alerts.js?v=2.0"></script>
+
+    <script src="history.js?v=2.0"></script>
+    <script src="posture-graph.js?v=2.0"></script>
+    <script src="script.js?v=2.0"></script>
+</body>
+</html>

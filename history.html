@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Posture Detection System — View your posture session history and analytics.">
+    <title>Session History — Posture Detection System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar scrolled">
+        <div class="nav-container">
+            <a href="dashboard.html" class="nav-logo">
+                <span class="logo-icon">◉</span>
+                <span class="logo-text">Posture System</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="history.html" class="nav-link-active">History</a></li>
+                <li><span class="nav-welcome" id="navWelcome">Welcome</span></li>
+                <li><button class="nav-logout-btn" id="logoutBtn">Logout</button></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="history-main">
+        <div class="container">
+            <div class="history-header">
+                <div>
+                    <h1>Session <span class="gradient-text">History</span></h1>
+                    <p class="history-subtitle">Review your past posture detection sessions</p>
+                </div>
+                <button class="btn btn-outline btn-sm" id="clearHistoryBtn">
+                    🗑️ Clear History
+                </button>
+            </div>
+
+            <!-- Stats Summary Cards -->
+            <div class="history-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-icon">📊</div>
+                    <div class="stat-card-info">
+                        <span class="stat-card-value" id="statTotalSessions">0</span>
+                        <span class="stat-card-label">Total Sessions</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">⏱️</div>
+                    <div class="stat-card-info">
+                        <span class="stat-card-value" id="statTotalTime">0m</span>
+                        <span class="stat-card-label">Total Time</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">🎯</div>
+                    <div class="stat-card-info">
+                        <span class="stat-card-value" id="statAvgScore">--</span>
+                        <span class="stat-card-label">Avg Score</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon">🔔</div>
+                    <div class="stat-card-info">
+                        <span class="stat-card-value" id="statTotalAlerts">0</span>
+                        <span class="stat-card-label">Total Alerts</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="card chart-card">
+                <div class="card-header">
+                    <span class="card-tag">Last 7 Sessions</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="historyChart"></canvas>
+                </div>
+                <div class="no-data-message" id="chartNoData" style="display:none;">
+                    <span class="no-data-icon">📈</span>
+                    <p>No session data yet. Complete a detection session to see your chart.</p>
+                </div>
+            </div>
+
+            <!-- Sessions Table -->
+            <div class="card table-card">
+                <div class="card-header">
+                    <span class="card-tag">All Sessions</span>
+                </div>
+                <div class="table-wrapper">
+                    <table class="history-table" id="historyTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Duration</th>
+                                <th>Avg Score</th>
+                                <th>Alerts</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                        </tbody>
+                    </table>
+                    <div class="no-data-message" id="tableNoData" style="display:none;">
+                        <span class="no-data-icon">📋</span>
+                        <p>No sessions recorded yet. Start a detection session on the Dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">◉</span>
+                    <span class="logo-text">Posture System</span>
+                </div>
+                <p class="footer-tagline">AI-powered posture monitoring and correction.</p>
+                <div class="footer-divider"></div>
+                <p class="footer-copy">ASEP 2 GROUP7 project</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="history.js"></script>
+</body>
+</html>
